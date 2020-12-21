@@ -37,21 +37,6 @@ void BFSD(int v, int N, int** graph) {
 	}
 }
 
-void BFSD_2(int v, int N_2, int** graph_2) {
-
-	QQ.push(v);
-	dist_2[v] = 0;
-	while (!QQ.empty()) {
-		v = QQ.front();
-		QQ.pop();
-		for (int i = 0; i < N_2; i++) {
-			if ((graph_2[v][i] > 0) && (dist_2[i] == -1)) {
-				QQ.push(i);
-				dist_2[i] = dist_2[v] + graph_2[v][i];
-			}
-		}
-	}
-}
 
 int main() {
 	srand(time(NULL));
@@ -113,14 +98,20 @@ int main() {
 
 	printf("\n\n Введите начальную вершину ");
 	scanf("%d", &start_2);
-	BFSD_2(start_2 - 1, N_2, graph_2);
+	//BFSD_2(start_2 - 1, N_2, graph_2);
+	dist = new int[N_2];
+	for (int i = 0; i < N_2; i++)
+	{
+		dist[i] = -1;
+	}
+	BFSD(start_2 - 1, N_2, graph_2);
 	printf("\n\n Вершины      ");
 	for (int i = 1; i <= N_2; i++) {
 		printf("|%3d ", i);
 	}
 	printf("\n Расстояние   ");
 	for (int i = 0; i < N_2; i++) {
-		printf("|%3d ", dist_2[i]);
+		printf("|%3d ", dist[i]);
 	}
 	printf("\n\n");
 
